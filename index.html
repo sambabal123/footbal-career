@@ -107,5 +107,5 @@ $("exportGame").onclick=()=>{let blob=new Blob([JSON.stringify(state,null,2)],{t
 $("importFile").onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let v=JSON.parse(await f.text());if(!v.club||!v.players||!v.teams)throw Error();state=v;render();save(false);toast("Save geïmporteerd!")}catch(err){toast("Dit bestand lijkt geen geldige carrière-save.")}};
 $("seasonEnd").onclick=()=>{state.season++;state.week=1;state.budget+=2;state.news="Het nieuwe seizoen is begonnen. De clubleiding heeft extra budget vrijgemaakt.";state.log.push("Seizoen afgerond. Welkom bij "+state.season+"/"+String(state.season+1).slice(-2)+".");render();save(false);toast("Nieuw seizoen gestart!")};
 $("reset").onclick=()=>{if(confirm("Weet je zeker dat je een nieuwe carrière wilt beginnen?")){state=fresh();save(false);render();showPage("home");toast("Nieuwe carrière gestart.")}};
-try{state=JSON.parse(localStorage.getItem("footballCareerSave"))||fresh()}catch(e){state=fresh()}initSetup();render();
+let hadSavedCareer=false;try{const saved=localStorage.getItem("footballCareerSave");if(saved){state=JSON.parse(saved);hadSavedCareer=true}else state=fresh()}catch(e){state=fresh()}initSetup();if(hadSavedCareer){$("startMenu").classList.add("hidden-app");$("gameApp").classList.remove("hidden-app")}render();
 </script></body></html>
