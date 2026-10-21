@@ -219,7 +219,59 @@ const lineMat=new THREE.LineBasicMaterial({color:0xe9f3df});function line(points
 function rect(x1,z1,x2,z2){line([[x1,z1],[x2,z1],[x2,z2],[x1,z2],[x1,z1]])}
 rect(-44.5,-24.5,44.5,24.5);line([[0,-24.5],[0,24.5]]);const circlePts=[];for(let i=0;i<=80;i++){const a=i/80*Math.PI*2;circlePts.push([Math.cos(a)*6.8,Math.sin(a)*6.8])}line(circlePts);rect(-44.5,-10.5,-32,10.5);rect(32,-10.5,44.5,10.5);rect(-44.5,-4.8,-39,4.8);rect(39,-4.8,44.5,4.8);
 function goal(x){const mat=new THREE.MeshStandardMaterial({color:0xe9f4e9,roughness:.6});const g=new THREE.Group();for(const [a,b] of [[0,0],[0,5.5],[0,-5.5],[0,0]]){}const posts=[new THREE.Vector3(x,.0,-5.5),new THREE.Vector3(x,0,5.5),new THREE.Vector3(x,0,-5.5)];const bar=new THREE.Mesh(new THREE.BoxGeometry(.18,2.5,.18),mat);bar.position.set(x,1.25,-5.5);g.add(bar);const bar2=bar.clone();bar2.position.z=5.5;g.add(bar2);const cross=new THREE.Mesh(new THREE.BoxGeometry(.18,.18,11),mat);cross.position.set(x,2.5,0);g.add(cross);scene3d.add(g)}goal(-45);goal(45);
-const standMat=new THREE.MeshStandardMaterial({color:0x182c28,roughness:.9});for(const side of [-1,1]){const stand=new THREE.Mesh(new THREE.BoxGeometry(95,3,7),standMat);stand.position.set(0,1.2,side*31);scene3d.add(stand)}
+
+// STADIUM: multi-tier stands, packed supporters and floodlights
+const standMat=new THREE.MeshStandardMaterial({color:0x182c28,roughness:.9});
+const concreteMat=new THREE.MeshStandardMaterial({color:0x34443e,roughness:.95});
+const seatMats=[0xb7f36b,0xf2f5ef,0xff914d,0x3478c8,0xd94c4c,0x202b28].map(color=>new THREE.MeshStandardMaterial({color,roughness:.8}));
+for(const side of [-1,1]){
+  const lower=new THREE.Mesh(new THREE.BoxGeometry(96,3.4,8),standMat);
+  lower.position.set(0,1.4,side*31);scene3d.add(lower);
+  const upper=new THREE.Mesh(new THREE.BoxGeometry(91,4.2,7),concreteMat);
+  upper.position.set(0,4.6,side*37);upper.rotation.x=side*.035;scene3d.add(upper);
+  for(let tier=0;tier<5;tier++){
+    const step=new THREE.Mesh(new THREE.BoxGeometry(91-tier*2,0.34,1.05),seatMats[5]);
+    step.position.set(0,2.9+tier*.68,side*(33.2+tier*1.15));scene3d.add(step);
+  }
+}
+// Instanced crowd: thousands of tiny coloured supporter silhouettes
+const crowdGeo=new THREE.BoxGeometry(.34,.48,.26);
+const crowdMat=new THREE.MeshStandardMaterial({color:0xffffff,roughness:1});
+const crowd=new THREE.InstancedMesh(crowdGeo,crowdMat,2400);
+const dummy=new THREE.Object3D();
+const crowdColors=[0xb7f36b,0xf1f3e9,0xff914d,0x4386ce,0xd95454,0x202b28,0xe0b84d,0x7d65c5];
+let ci=0;
+for(const side of [-1,1]){
+  for(let row=0;row<5;row++){
+    for(let col=0;col<170;col++){
+      dummy.position.set(-43+col*.51,3.15+row*.68,side*(32.8+row*1.15));
+      dummy.scale.set(1,0.85+(Math.random()*.4),1);
+      dummy.rotation.y=(Math.random()-.5)*.12;dummy.updateMatrix();
+      crowd.setMatrixAt(ci,dummy.matrix);
+      crowd.setColorAt(ci,new THREE.Color(crowdColors[Math.floor(Math.random()*crowdColors.length)]));
+      ci++;
+    }
+  }
+}
+crowd.count=ci;scene3d.add(crowd);
+// End stands behind each goal
+for(const end of [-1,1]){
+  const endStand=new THREE.Mesh(new THREE.BoxGeometry(7,6,56),standMat);
+  endStand.position.set(end*48,3,-1);scene3d.add(endStand);
+  for(let row=0;row<4;row++){
+    const step=new THREE.Mesh(new THREE.BoxGeometry(1,0.32,52-row*2),seatMats[5]);
+    step.position.set(end*(45.8+row*.8),1.2+row*.9,-1);scene3d.add(step);
+  }
+}
+// Four floodlight pylons
+for(const x of [-43,43])for(const z of [-37,37]){
+  const pole=new THREE.Mesh(new THREE.CylinderGeometry(.18,.28,20,8),concreteMat);
+  pole.position.set(x,10,z);scene3d.add(pole);
+  const panel=new THREE.Mesh(new THREE.BoxGeometry(2.5,1.1,.45),new THREE.MeshBasicMaterial({color:0xf8ffe7}));
+  panel.position.set(x,19.5,z);scene3d.add(panel);
+  const lamp=new THREE.SpotLight(0xeaf8ff,55,95,Math.PI/3,.45,1.4);
+  lamp.position.set(x,19,z);lamp.target.position.set(x*.55,0,0);scene3d.add(lamp);scene3d.add(lamp.target);
+}
 for(let i=0;i<22;i++){const isHome=i<11;const shirt=new THREE.MeshStandardMaterial({color:isHome?(state.kitColor||0xb7f36b):0xff914d,roughness:.62});const shorts=new THREE.MeshStandardMaterial({color:isHome?(state.kitSecondary||0x203c29):0x263b63,roughness:.8});const skin=new THREE.MeshStandardMaterial({color:0xd4a078,roughness:.9});const group=new THREE.Group();const body=new THREE.Mesh(new THREE.CapsuleGeometry(.48,.6,3,8),shirt);body.position.y=1.35;body.castShadow=true;group.add(body);const legs=new THREE.Mesh(new THREE.CylinderGeometry(.38,.4,.35,10),shorts);legs.position.y=.82;group.add(legs);const head=new THREE.Mesh(new THREE.SphereGeometry(.29,12,10),skin);head.position.y=2.12;head.castShadow=true;group.add(head);const marker=new THREE.Mesh(new THREE.RingGeometry(.7,.9,24),new THREE.MeshBasicMaterial({color:isHome?0xdfff9e:0xffd1a8,side:THREE.DoubleSide}));marker.rotation.x=-Math.PI/2;marker.position.y=.08;group.add(marker);scene3d.add(group);playerMeshes.push(group);ringMeshes.push(marker)}
 const ballMat=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.45});ballMesh=new THREE.Mesh(new THREE.SphereGeometry(.38,16,12),ballMat);ballMesh.position.y=.4;ballMesh.castShadow=true;scene3d.add(ballMesh);const seamMat=new THREE.MeshBasicMaterial({color:0x172019});const seam=new THREE.Mesh(new THREE.TorusGeometry(.25,.025,4,16),seamMat);seam.position.y=.72;seam.rotation.x=Math.PI/2;ballMesh.add(seam);resize3D();}
 function resize3D(){if(!renderer3d)return;const w=$("match3dWrap").clientWidth,h=$("match3dWrap").clientHeight;if(!w||!h)return;renderer3d.setSize(w,h,false);camera3d.aspect=w/h;camera3d.updateProjectionMatrix()}
