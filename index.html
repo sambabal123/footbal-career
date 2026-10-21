@@ -82,6 +82,54 @@
 .bench-panel{margin-top:14px;background:#0b211a;border:1px solid #285044;border-radius:12px;padding:13px}.bench-panel h3{display:flex;justify-content:space-between;align-items:center;margin:0 0 10px}.bench-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.bench-player{display:flex;align-items:center;gap:8px;padding:9px;background:#17382f;border:1px solid #38634e;border-radius:10px;cursor:grab;user-select:none;min-width:0}.bench-player strong{display:block;font-size:12px;overflow-wrap:anywhere}.bench-player small{display:block;color:var(--muted);font-size:10px}.bench-shirt{font-size:20px}.bench-drag{margin-left:auto;color:var(--lime);font-size:20px}.lineup-slot{min-width:0}.lineup-slot>div{min-width:0;overflow-wrap:anywhere}
 @media(max-width:900px){.lineup-layout{grid-template-columns:1fr}.lineup-pitch{min-height:340px}.bench-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.bench-list{grid-template-columns:1fr}.pitch-player-wrap{min-width:42px;font-size:9px;padding:4px 2px}.pitch-player-wrap .shirt{font-size:16px}.lineup-pitch{padding:10px 0;min-height:300px}.lineup-pitch-row{gap:2px}}
+
+/* Major visual overhaul: cinematic FC-inspired main hub */
+body{background:#070b0a!important;background-image:radial-gradient(ellipse at 50% -15%,#233c30 0,transparent 48%),linear-gradient(180deg,#080d0b,#050807 70%)!important;color:#f6f8f5}
+.wrap{max-width:1500px!important;padding:18px clamp(12px,2.2vw,32px)!important}
+.top{position:sticky;top:0;z-index:20;margin:-18px calc(clamp(12px,2.2vw,32px)*-1) 22px!important;padding:15px clamp(12px,2.2vw,32px)!important;background:#080d0bed!important;border-bottom:1px solid #ffffff12;backdrop-filter:blur(18px)}
+.brand{gap:12px!important}.brand .ball{width:42px;height:42px;display:grid;place-items:center;background:var(--lime);color:#08120c;border-radius:8px;font-size:23px;box-shadow:0 0 26px #b7f36b22}
+.brand h1{font-size:20px!important;letter-spacing:1.8px!important;font-weight:950!important}.brand p{font-size:10px!important;letter-spacing:1.5px!important;text-transform:uppercase;color:#9aaba0!important}
+.season{background:#111916;border:1px solid #29372f;border-radius:4px;padding:9px 12px;font-size:10px;letter-spacing:1.2px}
+#goHub{border-radius:4px!important;background:#121a16!important;border:1px solid #34443a!important}
+.hub-screen{max-width:1400px!important}
+.hub-hero{grid-template-columns:1.03fr .97fr!important;min-height:clamp(390px,39vw,560px)!important;border:0!important;border-radius:5px!important;background:#101713!important;box-shadow:0 26px 80px #0009!important}
+.hub-hero:after{height:4px!important;background:linear-gradient(90deg,var(--lime),#e8f5dc 45%,transparent)!important;opacity:1!important}
+.hub-copy{padding:clamp(24px,4vw,62px)!important}
+.eyebrow{font-size:10px!important;letter-spacing:2.4px!important;font-weight:900!important;color:#c1e78e!important}
+.hub-title{font-size:clamp(42px,6vw,86px)!important;line-height:.9!important;letter-spacing:-4px!important;font-weight:1000!important;margin:22px 0!important;text-transform:uppercase}
+.hub-title span{color:#b7f36b!important;text-shadow:none!important}
+.hub-copy p{max-width:410px!important;color:#c2cbc5!important;font-size:15px!important;line-height:1.7!important}
+.hub-action{border-radius:3px!important;text-transform:uppercase!important;font-weight:900!important;font-size:11px!important;letter-spacing:1px!important;padding:14px 19px!important}
+.hub-action.primary{background:#b7f36b!important;color:#0a120b!important;box-shadow:0 7px 25px #b7f36b18!important}
+.hub-action:not(.primary){background:#151d18!important;border:1px solid #425044!important;color:#f5f7f4!important}
+.hub-hero-art{min-height:380px!important;background-image:linear-gradient(90deg,#0c1710 0%,#0b1710a8 28%,#07100a33 100%),linear-gradient(0deg,#050806d9 0%,transparent 58%),url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1400&q=85')!important;background-size:cover!important;background-position:center!important}
+.hub-hero-art:before{left:-10%!important;right:-10%!important;bottom:-44%!important;height:65%!important;background:linear-gradient(0deg,#050806d9,#0b1b1188)!important;border-top:1px solid #d9f5c444!important}
+.hub-hero-art:after{left:18%!important;right:18%!important;bottom:4%!important;height:36%!important;border:1px solid #ffffff50!important;border-bottom:0!important;border-radius:50% 50% 0 0!important}
+.stadium-glow{background:radial-gradient(ellipse at 75% 8%,#ffffffc9 0,transparent 12%),radial-gradient(ellipse at 26% 8%,#ffffffb8 0,transparent 11%),linear-gradient(180deg,#ffffff0c,transparent 40%)!important}
+.hero-player{right:15%!important;top:12%!important;font-size:clamp(90px,12vw,170px)!important;filter:drop-shadow(0 15px 20px #000c)!important;opacity:.88!important}
+.hero-art-label{right:8%!important;bottom:8%!important;font-size:clamp(22px,3vw,40px)!important;letter-spacing:3px!important;text-shadow:0 4px 20px #000!important}
+.hero-art-label b{color:#b7f36b!important}.hero-art-label small{font-size:10px!important;letter-spacing:5px!important}
+.hub-section-head{margin:38px 2px 17px!important;align-items:center!important}
+.hub-section-head h2{font-size:clamp(25px,3vw,37px)!important;letter-spacing:-1.4px!important;margin-top:8px!important}
+.hub-section-head .sub{font-size:9px!important;letter-spacing:1.8px!important;color:#7c8c80!important}
+.mode-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important}
+.mode-card{min-height:250px!important;border-radius:4px!important;border:1px solid #ffffff16!important;padding:21px!important;gap:10px!important;background-color:#121a15!important;background-image:linear-gradient(180deg,#0b100b0a 0%,#080d0be8 90%),url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=900&q=75')!important;background-size:cover!important;background-position:center!important;box-shadow:0 14px 35px #0005!important;transition:transform .2s,border-color .2s,background-position .3s!important}
+.mode-card:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,#b7f36b12,transparent 55%);pointer-events:none}
+.mode-card:hover{transform:translateY(-5px)!important;border-color:#b7f36b88!important;background-color:#17231a!important;background-image:linear-gradient(180deg,#0b100b00 0%,#080d0bf0 90%),url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=900&q=75')!important}
+.mode-kicker{position:relative;font-size:9px!important;letter-spacing:2px!important;color:#d4e6d1!important}
+.mode-icon{position:relative;font-size:28px!important;margin:10px 0 14px!important;filter:drop-shadow(0 3px 10px #000)!important}
+.mode-card strong{position:relative;font-size:clamp(22px,2.4vw,32px)!important;letter-spacing:-1px!important;text-transform:uppercase!important}
+.mode-desc{position:relative;font-size:12px!important;color:#c3cec5!important;line-height:1.6!important;max-width:290px!important}
+.mode-open{position:relative;border-top:1px solid #ffffff25!important;width:100%!important;padding-top:14px!important;font-size:9px!important;letter-spacing:1.6px!important;color:#b7f36b!important}
+.mode-kickoff{background-image:linear-gradient(180deg,#0b100b0a,#080d0bed 90%),url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=900&q=75')!important}
+.mode-cup{background-image:linear-gradient(180deg,#0b100b0a,#080d0bed 90%),url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=900&q=75')!important}
+.mode-create{background-image:linear-gradient(180deg,#0b100b0a,#080d0bed 90%),url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=900&q=75')!important}
+.mode-ultimate{background-image:linear-gradient(180deg,#0b100b0a,#080d0bed 90%),url('https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=900&q=75')!important}
+.mode-playercareer{background-image:linear-gradient(180deg,#0b100b0a,#080d0bed 90%),url('https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=900&q=75')!important}
+.hub-footer{border-top:1px solid #ffffff16!important;margin-top:28px!important;padding-top:18px!important;font-size:9px!important;letter-spacing:1.4px!important;text-transform:uppercase!important}
+@media(max-width:850px){.hub-hero{grid-template-columns:1fr!important}.hub-copy{padding:30px!important}.hub-hero-art{min-height:250px!important}.mode-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:480px){.wrap{padding:10px!important}.top{margin:-10px -10px 16px!important;padding:12px 10px!important}.brand h1{font-size:15px!important}.brand p{display:none}.hub-title{font-size:43px!important;letter-spacing:-2px!important}.hub-copy{padding:22px!important}.hub-hero-art{min-height:210px!important}.mode-grid{grid-template-columns:1fr 1fr!important;gap:8px!important}.mode-card{min-height:225px!important;padding:13px!important}.mode-card strong{font-size:18px!important}.mode-desc{font-size:10px!important}.mode-icon{font-size:24px!important;margin:8px 0!important}.mode-kicker{font-size:8px!important;letter-spacing:1px!important}.mode-open{font-size:8px!important;letter-spacing:.8px!important}}
+
 </style></head>
 <body><div class="wrap">
 <header class="top"><div class="brand"><div class="ball">⚽</div><div><h1>FOOTBALL CAREER</h1><p>Jouw club. Jouw keuzes. Jouw nalatenschap.</p></div></div><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><button type="button" id="goHub">⌂ Hoofdmenu</button><div class="season">SEIZOEN <span id="season">2026/27</span></div></div></header>
