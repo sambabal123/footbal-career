@@ -239,7 +239,7 @@ function openNegotiation(p){
  const photo=$("negPhoto");
  photo.dataset.playerPhoto=p.name;
  photo.dataset.photoStarted="";
- photo.src=playerPhotoFallback(photo,p.name);
+ playerPhotoFallback(photo,p.name);
  fetchPlayerPhoto(p.name).then(src=>{if(src&&photo.isConnected&&negotiatingPlayer===p){photo.onerror=()=>playerPhotoFallback(photo,p.name);photo.src=src;}});
  $("negOffer").value=Number(p.value).toFixed(1);
  updateNegotiationCosts();
