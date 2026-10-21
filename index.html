@@ -130,6 +130,38 @@ body{background:#070b0a!important;background-image:radial-gradient(ellipse at 50
 @media(max-width:850px){.hub-hero{grid-template-columns:1fr!important}.hub-copy{padding:30px!important}.hub-hero-art{min-height:250px!important}.mode-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:480px){.wrap{padding:10px!important}.top{margin:-10px -10px 16px!important;padding:12px 10px!important}.brand h1{font-size:15px!important}.brand p{display:none}.hub-title{font-size:43px!important;letter-spacing:-2px!important}.hub-copy{padding:22px!important}.hub-hero-art{min-height:210px!important}.mode-grid{grid-template-columns:1fr 1fr!important;gap:8px!important}.mode-card{min-height:225px!important;padding:13px!important}.mode-card strong{font-size:18px!important}.mode-desc{font-size:10px!important}.mode-icon{font-size:24px!important;margin:8px 0!important}.mode-kicker{font-size:8px!important;letter-spacing:1px!important}.mode-open{font-size:8px!important;letter-spacing:.8px!important}}
 
+
+/* Shared visual system across every game screen */
+:root{--lime:#b7f36b;--bg:#070b09;--panel:#101713;--panel2:#151e18;--line:#2a372d;--muted:#a4b2a7}
+button,select,input,textarea{font-family:inherit}
+button{border-radius:4px!important;border:1px solid #344238!important;background:linear-gradient(180deg,#1b261f,#121a15)!important;color:#f5f7f4!important;font-weight:800;transition:transform .16s,border-color .16s,filter .16s}
+button:hover{border-color:#9edc5b!important;filter:brightness(1.1)}
+button:active{transform:scale(.985)}
+button.primary,.primary{background:linear-gradient(180deg,#c4fa7c,#a8e85c)!important;color:#10170d!important;border-color:#c4fa7c!important}
+input,select,textarea{background:#0a100c!important;border:1px solid #354338!important;border-radius:4px!important;color:#f3f7f1!important;padding:11px 12px!important}
+input:focus,select:focus,textarea:focus{border-color:#b7f36b!important;outline:2px solid #b7f36b25!important}
+label{color:#b8c7bb!important;font-size:10px!important;letter-spacing:1.2px!important;text-transform:uppercase!important;font-weight:850!important}
+.card,.panel,.menu-card,.stat,.stat-card,.box,.section,.content-card{border-radius:5px!important;border-color:#29372e!important;box-shadow:0 12px 30px #0003}
+.menu-screen,.ultimate-screen{border-radius:5px!important;border-color:#2b3b30!important;box-shadow:0 24px 70px #0006}
+.menu-card{background:linear-gradient(145deg,#151f18,#0c120e)!important}
+.menu-screen h2,.section-title,.page-title{letter-spacing:-1.5px!important;font-weight:950!important}
+.eyebrow,.tag,.badge{letter-spacing:1.4px!important}
+#gameApp{color:#f2f6f2}
+.side{background:#090e0b!important;border-right:1px solid #202c23!important}
+.nav{border-radius:3px!important;color:#aebbb0!important;border-left:2px solid transparent!important}
+.nav:hover,.nav.active{background:#19251b!important;color:#d7ffab!important;border-left-color:#b7f36b!important}
+.top,.side,.menu-screen,.ultimate-screen{backdrop-filter:blur(10px)}
+hr{border:0;border-top:1px solid #2b382e}
+table{border-collapse:collapse}
+th{color:#b7f36b!important;text-transform:uppercase;font-size:10px!important;letter-spacing:1px!important}
+td,th{border-bottom:1px solid #ffffff12;padding:10px 8px}
+.stats>div,.stat-box,.pc-stat{background:linear-gradient(145deg,#18231b,#0c120e)!important;border:1px solid #29372e!important;border-radius:4px!important;padding:13px!important}
+.crest{box-shadow:0 8px 25px #0005}
+.setup-bottom{border-top:1px solid #ffffff16;padding-top:18px}
+.ultimate-screen .ut-squad-panel{border-radius:5px!important;background:#0b120d!important}
+.ut-pitch{border-radius:4px!important}
+@media(max-width:760px){.top{gap:10px}.nav{border-left:0!important;border-bottom:2px solid transparent!important}.nav.active{border-bottom-color:#b7f36b!important}}
+
 </style></head>
 <body><div class="wrap">
 <header class="top"><div class="brand"><div class="ball">⚽</div><div><h1>FOOTBALL CAREER</h1><p>Jouw club. Jouw keuzes. Jouw nalatenschap.</p></div></div><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><button type="button" id="goHub">⌂ Hoofdmenu</button><div class="season">SEIZOEN <span id="season">2026/27</span></div></div></header>
