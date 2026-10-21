@@ -135,7 +135,7 @@ const leagueClubs={
  "Serie A":["Inter","AC Milan","Juventus","Napoli","Roma","Lazio","Atalanta","Fiorentina"]
 };
 function leagueTeamNames(league){return [...(leagueClubs[league]||leagueClubs.Eredivisie)];}
-function makeFixtureOpponents(league,club){return leagueTeamNames(league).filter(n=>n!==club).sort(()=>Math.random()-.5).slice(0,6);}
+function makeFixtureOpponents(league,club){const pool=leagueTeamNames(league);if(!pool.includes(club)){pool.pop();pool.push(club)}return pool.filter(n=>n!==club).sort(()=>Math.random()-.5).slice(0,6);}
 
 const marketPlayers=[{name:"Virgil van Dijk",pos:"CB",age:35,rating:88,value:22.0},{name:"Jude Bellingham",pos:"CM",age:23,rating:90,value:120.0},{name:"Kylian Mbappé",pos:"ST",age:27,rating:92,value:180.0},{name:"Lamine Yamal",pos:"RW",age:19,rating:89,value:150.0},{name:"Erling Haaland",pos:"ST",age:26,rating:91,value:170.0},{name:"Frenkie de Jong",pos:"CM",age:29,rating:87,value:45.0},{name:"Cody Gakpo",pos:"LW",age:27,rating:84,value:48.0},{name:"Xavi Simons",pos:"AM",age:23,rating:84,value:60.0}];
 const $=id=>document.getElementById(id);
