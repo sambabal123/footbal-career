@@ -501,65 +501,7 @@ body:has(#homeHub:not(.hidden-app)) .season{border-radius:7px;background:#101b14
 <section id="page-save" class="hidden"><div class="panel"><div class="eyebrow">Voortgang bewaren</div><h2>Opslaan & laden</h2><p>Je carrière wordt op dit apparaat bewaard in de browser. Gebruik export om ook een reservekopie te downloaden.</p><div class="actions"><button class="primary" id="saveGame">💾 Nu opslaan</button><button id="loadGame">↻ Laden</button><button id="exportGame">⇩ Exportbestand</button><label><input type="file" id="importFile" accept=".json,application/json" style="margin-top:8px"></label></div><p class="notice">Browseropslag synchroniseert niet automatisch tussen je iPhone en Chromebook. Gebruik export/import om te verplaatsen.</p></div></section>
 <div class="foot">Football Career • fan-made managerdemo • gebouwd voor mobiel en Chromebook</div>
 </main></div></div><div id="toast" class="toast hidden"></div>
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js">
-/* Working transfer negotiation */
-let negotiatingPlayer=null;
-function openNegotiation(p){
- negotiatingPlayer=p;
- const overlay=$("transferNegotiation");
- overlay.classList.add("open");
- $("negPlayerName").textContent=p.name;
- $("negCardName").textContent=p.name.toUpperCase();
- $("negPlayerClub").textContent=(p.club||"Huidige club")+" • "+p.pos;
- $("negRating").textContent=p.rating;
- $("negPosition").textContent=p.pos;
- $("negMeta").innerHTML="Leeftijd "+p.age+"<br>Marktwaarde "+money(p.value)+"<br>Geschat weekloon "+money(Math.max(.008,p.rating*p.rating/35000));
- const photo=$("negPhoto");
- photo.dataset.playerPhoto=p.name;
- photo.dataset.photoStarted="";
- playerPhotoFallback(photo,p.name);
- fetchPlayerPhoto(p.name).then(src=>{if(src&&photo.isConnected&&negotiatingPlayer===p){photo.onerror=()=>playerPhotoFallback(photo,p.name);photo.src=src;}});
- $("negOffer").value=Number(p.value).toFixed(1);
- updateNegotiationCosts();
- $("negMessage").textContent="Pas je bod aan en breng het uit.";
- $("negMood").textContent="WACHT OP BOD";
-}
-function updateNegotiationCosts(){
- if(!negotiatingPlayer)return;
- const offer=Number($("negOffer").value)||0;
- $("negFeeLabel").textContent=money(offer);
- $("negSignFee").textContent=money(offer*.05);
- $("negAgentFee").textContent=money(offer*.03);
- $("negBudget").textContent=money(state.budget);
- $("negRemaining").textContent=money(state.budget-offer);
-}
-$("negClose").addEventListener("click",()=>$("transferNegotiation").classList.remove("open"));
-$("transferNegotiation").addEventListener("click",e=>{if(e.target.id==="transferNegotiation")$("transferNegotiation").classList.remove("open")});
-$("negOffer").addEventListener("input",updateNegotiationCosts);
-$("negMakeOffer").addEventListener("click",()=>{
- const p=negotiatingPlayer;if(!p)return;
- const offer=Number($("negOffer").value);
- if(!Number.isFinite(offer)||offer<=0){$("negMessage").textContent="Vul een geldig bod in.";return;}
- if(offer>state.budget){$("negMessage").textContent="Je hebt niet genoeg transferbudget.";return;}
- const threshold=p.value*(.88+Math.random()*.28);
- if(offer<threshold){
-  $("negMessage").textContent="Bod afgewezen. De club vraagt meer geld. Verhoog je bod en probeer opnieuw.";
-  $("negMood").textContent="BOD AFGEWEZEN";
-  state.log.push("Bod van "+money(offer)+" op "+p.name+" afgewezen.");
-  state.news=p.name+" en zijn club vinden het bod te laag.";
-  render();save(false);updateNegotiationCosts();return;
- }
- const player=enrichPlayer({...p,value:offer,contractYears:3,wage:Math.max(.008,p.rating*p.rating/35000),morale:70,fitness:100,form:0,potential:Math.min(99,p.rating+Math.floor(Math.random()*9))});
- state.budget-=offer;state.players.push(player);
- state.log.push(p.name+" aangetrokken voor "+money(offer)+". Contract: 3 jaar.");
- state.news=p.name+" heeft een contract getekend bij "+state.club+".";
- $("negMessage").textContent="Akkoord! "+p.name+" is toegevoegd aan je selectie.";
- $("negMood").textContent="TRANSFER AKKOORD";
- render();save(false);toast("Transfer afgerond!");
- setTimeout(()=>$("transferNegotiation").classList.remove("open"),1100);
-});
-
-</script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 <script>
 const initialPlayers=[
 {name:"Remko Pasveer",pos:"GK",age:42,rating:72,value:0.3},{name:"Devyne Rensch",pos:"RB",age:23,rating:76,value:9.0},{name:"Jorrel Hato",pos:"CB",age:20,rating:79,value:25.0},{name:"Josip Šutalo",pos:"CB",age:26,rating:77,value:12.0},{name:"Youri Baas",pos:"LB",age:23,rating:75,value:8.0},{name:"Jordan Henderson",pos:"CM",age:36,rating:78,value:3.0},{name:"Kenneth Taylor",pos:"CM",age:24,rating:78,value:15.0},{name:"Steven Berghuis",pos:"RW",age:34,rating:77,value:2.5},{name:"Davy Klaassen",pos:"AM",age:33,rating:76,value:2.0},{name:"Mika Godts",pos:"LW",age:21,rating:77,value:14.0},{name:"Brian Brobbey",pos:"ST",age:24,rating:78,value:18.0}];
@@ -1060,4 +1002,66 @@ if(hadSavedCareer){$("startMenu").classList.add("hidden-app");$("gameApp").class
 </div>
 
 <div id="gameCutscene" class="cutscene" role="dialog" aria-modal="true" aria-label="Wedstrijdscène"><div class="cutscene-bg"></div><div class="cutscene-shade"></div><div class="cutscene-light"></div><div class="cutscene-content"><div class="cutscene-top"><span id="cutsceneEyebrow">FOOTBALL CAREER • MATCHDAY</span><span class="cutscene-live" id="cutsceneLive">MATCHDAY</span></div><div class="cutscene-title" id="cutsceneTitle">IT'S <em>MATCHDAY</em></div><div class="cutscene-sub" id="cutsceneSub">De spelers maken zich klaar.</div><div class="cutscene-score" id="cutsceneScore" hidden><div class="cutscene-team" id="cutsceneHome">THUIS</div><div class="cutscene-numbers"><span id="cutsceneHomeScore">0</span> – <span id="cutsceneAwayScore">0</span></div><div class="cutscene-team" id="cutsceneAway">UIT</div></div><div class="cutscene-actions"><button id="cutsceneContinue">▶ Start wedstrijd</button><button id="cutsceneSkip" class="secondary">Scène overslaan ↗</button></div></div><div class="cutscene-bottom"><span>FOOTBALL CAREER • CINEMATIC PRESENTATION</span><span id="cutsceneFooter">STADIONCAMERA • LIVE</span></div><div class="cutscene-progress"></div></div>
+
+<script>
+
+/* Working transfer negotiation */
+let negotiatingPlayer=null;
+function openNegotiation(p){
+ negotiatingPlayer=p;
+ const overlay=$("transferNegotiation");
+ overlay.classList.add("open");
+ $("negPlayerName").textContent=p.name;
+ $("negCardName").textContent=p.name.toUpperCase();
+ $("negPlayerClub").textContent=(p.club||"Huidige club")+" • "+p.pos;
+ $("negRating").textContent=p.rating;
+ $("negPosition").textContent=p.pos;
+ $("negMeta").innerHTML="Leeftijd "+p.age+"<br>Marktwaarde "+money(p.value)+"<br>Geschat weekloon "+money(Math.max(.008,p.rating*p.rating/35000));
+ const photo=$("negPhoto");
+ photo.dataset.playerPhoto=p.name;
+ photo.dataset.photoStarted="";
+ playerPhotoFallback(photo,p.name);
+ fetchPlayerPhoto(p.name).then(src=>{if(src&&photo.isConnected&&negotiatingPlayer===p){photo.onerror=()=>playerPhotoFallback(photo,p.name);photo.src=src;}});
+ $("negOffer").value=Number(p.value).toFixed(1);
+ updateNegotiationCosts();
+ $("negMessage").textContent="Pas je bod aan en breng het uit.";
+ $("negMood").textContent="WACHT OP BOD";
+}
+function updateNegotiationCosts(){
+ if(!negotiatingPlayer)return;
+ const offer=Number($("negOffer").value)||0;
+ $("negFeeLabel").textContent=money(offer);
+ $("negSignFee").textContent=money(offer*.05);
+ $("negAgentFee").textContent=money(offer*.03);
+ $("negBudget").textContent=money(state.budget);
+ $("negRemaining").textContent=money(state.budget-offer);
+}
+$("negClose").addEventListener("click",()=>$("transferNegotiation").classList.remove("open"));
+$("transferNegotiation").addEventListener("click",e=>{if(e.target.id==="transferNegotiation")$("transferNegotiation").classList.remove("open")});
+$("negOffer").addEventListener("input",updateNegotiationCosts);
+$("negMakeOffer").addEventListener("click",()=>{
+ const p=negotiatingPlayer;if(!p)return;
+ const offer=Number($("negOffer").value);
+ if(!Number.isFinite(offer)||offer<=0){$("negMessage").textContent="Vul een geldig bod in.";return;}
+ if(offer>state.budget){$("negMessage").textContent="Je hebt niet genoeg transferbudget.";return;}
+ const threshold=p.value*(.88+Math.random()*.28);
+ if(offer<threshold){
+  $("negMessage").textContent="Bod afgewezen. De club vraagt meer geld. Verhoog je bod en probeer opnieuw.";
+  $("negMood").textContent="BOD AFGEWEZEN";
+  state.log.push("Bod van "+money(offer)+" op "+p.name+" afgewezen.");
+  state.news=p.name+" en zijn club vinden het bod te laag.";
+  render();save(false);updateNegotiationCosts();return;
+ }
+ const player=enrichPlayer({...p,value:offer,contractYears:3,wage:Math.max(.008,p.rating*p.rating/35000),morale:70,fitness:100,form:0,potential:Math.min(99,p.rating+Math.floor(Math.random()*9))});
+ state.budget-=offer;state.players.push(player);
+ state.log.push(p.name+" aangetrokken voor "+money(offer)+". Contract: 3 jaar.");
+ state.news=p.name+" heeft een contract getekend bij "+state.club+".";
+ $("negMessage").textContent="Akkoord! "+p.name+" is toegevoegd aan je selectie.";
+ $("negMood").textContent="TRANSFER AKKOORD";
+ render();save(false);toast("Transfer afgerond!");
+ setTimeout(()=>$("transferNegotiation").classList.remove("open"),1100);
+});
+
+
+</script>
 </body></html>
