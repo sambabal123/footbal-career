@@ -250,59 +250,65 @@ function rect(x1,z1,x2,z2){line([[x1,z1],[x2,z1],[x2,z2],[x1,z2],[x1,z1]])}
 rect(-44.5,-24.5,44.5,24.5);line([[0,-24.5],[0,24.5]]);const circlePts=[];for(let i=0;i<=80;i++){const a=i/80*Math.PI*2;circlePts.push([Math.cos(a)*6.8,Math.sin(a)*6.8])}line(circlePts);rect(-44.5,-10.5,-32,10.5);rect(32,-10.5,44.5,10.5);rect(-44.5,-4.8,-39,4.8);rect(39,-4.8,44.5,4.8);
 function goal(x){const mat=new THREE.MeshStandardMaterial({color:0xe9f4e9,roughness:.6});const g=new THREE.Group();for(const [a,b] of [[0,0],[0,5.5],[0,-5.5],[0,0]]){}const posts=[new THREE.Vector3(x,.0,-5.5),new THREE.Vector3(x,0,5.5),new THREE.Vector3(x,0,-5.5)];const bar=new THREE.Mesh(new THREE.BoxGeometry(.18,2.5,.18),mat);bar.position.set(x,1.25,-5.5);g.add(bar);const bar2=bar.clone();bar2.position.z=5.5;g.add(bar2);const cross=new THREE.Mesh(new THREE.BoxGeometry(.18,.18,11),mat);cross.position.set(x,2.5,0);g.add(cross);scene3d.add(g)}goal(-45);goal(45);
 
-// STADIUM: multi-tier stands, packed supporters and floodlights
-const standMat=new THREE.MeshStandardMaterial({color:0x182c28,roughness:.9});
-const concreteMat=new THREE.MeshStandardMaterial({color:0x34443e,roughness:.95});
-const seatMats=[0xb7f36b,0xf2f5ef,0xff914d,0x3478c8,0xd94c4c,0x202b28].map(color=>new THREE.MeshStandardMaterial({color,roughness:.8}));
-for(const side of [-1,1]){
-  const lower=new THREE.Mesh(new THREE.BoxGeometry(96,3.4,8),standMat);
-  lower.position.set(0,1.4,side*31);scene3d.add(lower);
-  const upper=new THREE.Mesh(new THREE.BoxGeometry(91,4.2,7),concreteMat);
-  upper.position.set(0,4.6,side*37);upper.rotation.x=side*.035;scene3d.add(upper);
-  for(let tier=0;tier<5;tier++){
-    const step=new THREE.Mesh(new THREE.BoxGeometry(91-tier*2,0.34,1.05),seatMats[5]);
-    step.position.set(0,2.9+tier*.68,side*(33.2+tier*1.15));scene3d.add(step);
-  }
-}
-// Instanced crowd: thousands of tiny coloured supporter silhouettes
-const crowdGeo=new THREE.BoxGeometry(.34,.48,.26);
-const crowdMat=new THREE.MeshStandardMaterial({color:0xffffff,roughness:1});
-const crowd=new THREE.InstancedMesh(crowdGeo,crowdMat,2400);
-const dummy=new THREE.Object3D();
-const crowdColors=[0xb7f36b,0xf1f3e9,0xff914d,0x4386ce,0xd95454,0x202b28,0xe0b84d,0x7d65c5];
-let ci=0;
-for(const side of [-1,1]){
-  for(let row=0;row<5;row++){
-    for(let col=0;col<170;col++){
-      dummy.position.set(-43+col*.51,3.15+row*.68,side*(32.8+row*1.15));
-      dummy.scale.set(1,0.85+(Math.random()*.4),1);
-      dummy.rotation.y=(Math.random()-.5)*.12;dummy.updateMatrix();
-      crowd.setMatrixAt(ci,dummy.matrix);
-      crowd.setColorAt(ci,new THREE.Color(crowdColors[Math.floor(Math.random()*crowdColors.length)]));
-      ci++;
-    }
-  }
-}
-crowd.count=ci;scene3d.add(crowd);
-// End stands behind each goal
-for(const end of [-1,1]){
-  const endStand=new THREE.Mesh(new THREE.BoxGeometry(7,6,56),standMat);
-  endStand.position.set(end*48,3,-1);scene3d.add(endStand);
-  for(let row=0;row<4;row++){
-    const step=new THREE.Mesh(new THREE.BoxGeometry(1,0.32,52-row*2),seatMats[5]);
-    step.position.set(end*(45.8+row*.8),1.2+row*.9,-1);scene3d.add(step);
-  }
-}
-// Four floodlight pylons
-for(const x of [-43,43])for(const z of [-37,37]){
-  const pole=new THREE.Mesh(new THREE.CylinderGeometry(.18,.28,20,8),concreteMat);
-  pole.position.set(x,10,z);scene3d.add(pole);
-  const panel=new THREE.Mesh(new THREE.BoxGeometry(2.5,1.1,.45),new THREE.MeshBasicMaterial({color:0xf8ffe7}));
-  panel.position.set(x,19.5,z);scene3d.add(panel);
-  const lamp=new THREE.SpotLight(0xeaf8ff,55,95,Math.PI/3,.45,1.4);
-  lamp.position.set(x,19,z);lamp.target.position.set(x*.55,0,0);scene3d.add(lamp);scene3d.add(lamp.target);
-}
-for(let i=0;i<22;i++){const isHome=i<11;const shirt=new THREE.MeshStandardMaterial({color:isHome?(state.kitColor||0xb7f36b):0xff914d,roughness:.62});const shorts=new THREE.MeshStandardMaterial({color:isHome?(state.kitSecondary||0x203c29):0x263b63,roughness:.8});const skin=new THREE.MeshStandardMaterial({color:0xd4a078,roughness:.9});const group=new THREE.Group();const body=new THREE.Mesh(new THREE.CapsuleGeometry(.48,.6,3,8),shirt);body.position.y=1.35;body.castShadow=true;group.add(body);const legs=new THREE.Mesh(new THREE.CylinderGeometry(.38,.4,.35,10),shorts);legs.position.y=.82;group.add(legs);const head=new THREE.Mesh(new THREE.SphereGeometry(.29,12,10),skin);head.position.y=2.12;head.castShadow=true;group.add(head);const marker=new THREE.Mesh(new THREE.RingGeometry(.7,.9,24),new THREE.MeshBasicMaterial({color:isHome?0xdfff9e:0xffd1a8,side:THREE.DoubleSide}));marker.rotation.x=-Math.PI/2;marker.position.y=.08;group.add(marker);scene3d.add(group);playerMeshes.push(group);ringMeshes.push(marker)}
+// STADIUM: enclosed bowl, seating tiers, canopy, advertising boards and supporters
+ const standMat=new THREE.MeshStandardMaterial({color:0x142522,roughness:.94});
+ const concreteMat=new THREE.MeshStandardMaterial({color:0x35433f,roughness:.92});
+ const roofMat=new THREE.MeshStandardMaterial({color:0x253a36,metalness:.28,roughness:.7,side:THREE.DoubleSide});
+ const adMats=[0xb7f36b,0xf5f4ec,0xff914d,0x3a83c9].map(color=>new THREE.MeshStandardMaterial({color,emissive:color,emissiveIntensity:.12,roughness:.65}));
+ const seatMats=[0xb7f36b,0xf2f5ef,0xff914d,0x3478c8,0xd94c4c,0x202b28].map(color=>new THREE.MeshStandardMaterial({color,roughness:.85}));
+ for(const side of [-1,1]){
+   const lower=new THREE.Mesh(new THREE.BoxGeometry(96,3.8,8.8),standMat);lower.position.set(0,1.55,side*31);lower.castShadow=true;scene3d.add(lower);
+   for(let tier=0;tier<9;tier++){const step=new THREE.Mesh(new THREE.BoxGeometry(91-tier*1.45,.34,1.12),seatMats[5]);step.position.set(0,3.25+tier*.57,side*(32.5+tier*1.03));step.castShadow=true;scene3d.add(step)}
+   const upper=new THREE.Mesh(new THREE.BoxGeometry(94,1.25,7.5),concreteMat);upper.position.set(0,8.25,side*39.1);scene3d.add(upper);
+   const roof=new THREE.Mesh(new THREE.BoxGeometry(99,.75,10),roofMat);roof.position.set(0,10.7,side*37.8);roof.rotation.x=side*.06;roof.castShadow=true;scene3d.add(roof);
+   for(const x of [-44,-22,0,22,44]){const beam=new THREE.Mesh(new THREE.BoxGeometry(.32,4.1,.32),concreteMat);beam.position.set(x,8.7,side*38.1);scene3d.add(beam)}
+   for(let i=0;i<12;i++){const board=new THREE.Mesh(new THREE.BoxGeometry(7.1,.62,.24),adMats[i%adMats.length]);board.position.set(-38.5+i*7,.48,side*26.1);scene3d.add(board)}
+ }
+ const crowdGeo=new THREE.CapsuleGeometry(.13,.2,2,5),crowdMat=new THREE.MeshStandardMaterial({color:0xffffff,roughness:1});
+ const crowd=new THREE.InstancedMesh(crowdGeo,crowdMat,3400),dummy=new THREE.Object3D();
+ const crowdColors=[0xb7f36b,0xf1f3e9,0xff914d,0x4386ce,0xd95454,0x202b28,0xe0b84d,0x7d65c5];let ci=0;
+ for(const side of [-1,1])for(let row=0;row<8;row++)for(let col=0;col<205;col++){
+   dummy.position.set(-44+col*.43,3.45+row*.57,side*(32.2+row*1.03));const scale=.72+Math.random()*.55;dummy.scale.set(scale,scale,scale);dummy.rotation.y=(Math.random()-.5)*.2;dummy.updateMatrix();crowd.setMatrixAt(ci,dummy.matrix);crowd.setColorAt(ci,new THREE.Color(crowdColors[Math.floor(Math.random()*crowdColors.length)]));ci++;
+ }
+ crowd.count=ci;crowd.instanceMatrix.needsUpdate=true;scene3d.add(crowd);
+ for(const end of [-1,1]){
+   const endStand=new THREE.Mesh(new THREE.BoxGeometry(8,8,57),standMat);endStand.position.set(end*48,4,-1);scene3d.add(endStand);
+   for(let row=0;row<7;row++){const step=new THREE.Mesh(new THREE.BoxGeometry(1.15,.34,54-row*1.5),seatMats[5]);step.position.set(end*(44.7+row*.7),1.1+row*.82,-1);scene3d.add(step)}
+   const endRoof=new THREE.Mesh(new THREE.BoxGeometry(9,.7,61),roofMat);endRoof.position.set(end*48,10.4,-1);scene3d.add(endRoof);
+ }
+ for(const x of [-43,43])for(const z of [-37,37]){
+   const pole=new THREE.Mesh(new THREE.CylinderGeometry(.18,.28,19,10),concreteMat);pole.position.set(x,9.5,z);pole.castShadow=true;scene3d.add(pole);
+   const panel=new THREE.Mesh(new THREE.BoxGeometry(3.3,1.15,.45),new THREE.MeshStandardMaterial({color:0xf8ffe7,emissive:0xeaf8ff,emissiveIntensity:2}));panel.position.set(x,19,z);scene3d.add(panel);
+   for(let j=0;j<3;j++){const lamp=new THREE.SpotLight(0xeaf8ff,30,85,Math.PI/3,.5,1.5);lamp.position.set(x+(j-1)*.85,19,z);lamp.target.position.set(x*.55,0,0);scene3d.add(lamp);scene3d.add(lamp.target)}
+ }
+// Detailed low-poly footballers: shirts, shorts, socks, boots, arms, neck and hair
+ const skinTones=[0xd4a078,0x9b6548,0xf0c7a0,0x74462f,0xb77b55,0xe0a77c];
+ const bootMat=new THREE.MeshStandardMaterial({color:0x111820,roughness:.72});
+ const sockHome=new THREE.MeshStandardMaterial({color:state.kitColor||0xb7f36b,roughness:.82});
+ const sockAway=new THREE.MeshStandardMaterial({color:0xf0f0e8,roughness:.82});
+ for(let i=0;i<22;i++){
+   const isHome=i<11;
+   const shirt=new THREE.MeshStandardMaterial({color:isHome?(state.kitColor||0xb7f36b):0xff914d,roughness:.68});
+   const shorts=new THREE.MeshStandardMaterial({color:isHome?(state.kitSecondary||0x203c29):0x263b63,roughness:.8});
+   const skin=new THREE.MeshStandardMaterial({color:skinTones[i%skinTones.length],roughness:.9});
+   const hair=new THREE.MeshStandardMaterial({color:[0x201813,0x38271d,0x5a3b24,0x171717][i%4],roughness:1});
+   const group=new THREE.Group();
+   const torso=new THREE.Mesh(new THREE.CapsuleGeometry(.43,.68,4,10),shirt);torso.position.y=1.42;torso.scale.set(.92,1,.58);torso.castShadow=true;group.add(torso);
+   const collar=new THREE.Mesh(new THREE.TorusGeometry(.19,.045,6,12),shorts);collar.position.y=1.82;collar.rotation.x=Math.PI/2;group.add(collar);
+   const shortsMesh=new THREE.Mesh(new THREE.BoxGeometry(.66,.34,.46),shorts);shortsMesh.position.set(0,.91,0);shortsMesh.castShadow=true;group.add(shortsMesh);
+   const head=new THREE.Mesh(new THREE.SphereGeometry(.235,14,12),skin);head.position.y=2.05;head.castShadow=true;group.add(head);
+   const hairCap=new THREE.Mesh(new THREE.SphereGeometry(.239,12,8,0,Math.PI*2,0,Math.PI*.52),hair);hairCap.position.y=2.105;hairCap.castShadow=true;group.add(hairCap);
+   const neck=new THREE.Mesh(new THREE.CylinderGeometry(.09,.11,.16,8),skin);neck.position.y=1.88;group.add(neck);
+   for(const side of [-1,1]){
+     const arm=new THREE.Mesh(new THREE.CapsuleGeometry(.105,.46,3,7),shirt);arm.position.set(side*.48,1.39,0);arm.rotation.z=side*-.18;arm.castShadow=true;group.add(arm);
+     const hand=new THREE.Mesh(new THREE.SphereGeometry(.095,8,7),skin);hand.position.set(side*.53,1.08,.01);group.add(hand);
+     const leg=new THREE.Mesh(new THREE.CapsuleGeometry(.135,.47,3,8),skin);leg.position.set(side*.19,.56,0);leg.castShadow=true;group.add(leg);
+     const sock=new THREE.Mesh(new THREE.CylinderGeometry(.105,.12,.29,8),isHome?sockHome:sockAway);sock.position.set(side*.19,.31,0);group.add(sock);
+     const boot=new THREE.Mesh(new THREE.BoxGeometry(.19,.12,.31),bootMat);boot.position.set(side*.19,.12,-.065);boot.castShadow=true;group.add(boot);
+   }
+   const marker=new THREE.Mesh(new THREE.RingGeometry(.65,.82,24),new THREE.MeshBasicMaterial({color:isHome?0xdfff9e:0xffd1a8,side:THREE.DoubleSide,transparent:true,opacity:.78}));
+   marker.rotation.x=-Math.PI/2;marker.position.y=.055;group.add(marker);scene3d.add(group);playerMeshes.push(group);ringMeshes.push(marker);
+ }
 const ballMat=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.45});ballMesh=new THREE.Mesh(new THREE.SphereGeometry(.38,16,12),ballMat);ballMesh.position.y=.4;ballMesh.castShadow=true;scene3d.add(ballMesh);const seamMat=new THREE.MeshBasicMaterial({color:0x172019});const seam=new THREE.Mesh(new THREE.TorusGeometry(.25,.025,4,16),seamMat);seam.position.y=.72;seam.rotation.x=Math.PI/2;ballMesh.add(seam);resize3D();}
 function resize3D(){if(!renderer3d)return;const w=$("match3dWrap").clientWidth,h=$("match3dWrap").clientHeight;if(!w||!h)return;renderer3d.setSize(w,h,false);camera3d.aspect=w/h;camera3d.updateProjectionMatrix()}
 window.addEventListener("resize",resize3D);
