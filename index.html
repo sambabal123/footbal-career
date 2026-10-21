@@ -203,25 +203,109 @@ input,select{border-radius:4px;background:#0b0e12;border-color:#3a424d}
 @keyframes cutsceneCopy{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}@keyframes cutsceneBlink{50%{opacity:.25}}@keyframes cutsceneProgress{to{width:100%}}
 @media(max-width:600px){.cutscene-content{width:calc(100% - 28px)}.cutscene-title{margin:22px 0 12px}.cutscene-bottom{left:14px;right:14px;bottom:12px;font-size:8px}.cutscene-score{gap:12px}.cutscene-actions button{padding:12px 14px}}
 
+
+/* HOME HUB REDESIGN — broadcast-style football game menu */
+body:has(#homeHub:not(.hidden-app)){background:#050b09;background-image:radial-gradient(ellipse at 50% -20%,#1c3a2c 0,transparent 48%),linear-gradient(180deg,#07100c,#050907 70%);background-attachment:fixed}
+body:has(#homeHub:not(.hidden-app))>.wrap{max-width:1460px;padding:18px clamp(14px,3vw,42px) 24px}
+body:has(#homeHub:not(.hidden-app)) .top{padding:4px 0 19px;border-bottom:1px solid #ffffff13;margin-bottom:25px}
+body:has(#homeHub:not(.hidden-app)) .brand{gap:13px}
+body:has(#homeHub:not(.hidden-app)) .brand .ball{border-radius:8px;width:43px;height:43px;background:linear-gradient(145deg,#d4ff8c,#93d84d);box-shadow:0 0 25px #a8ed6530}
+body:has(#homeHub:not(.hidden-app)) .brand h1{font-size:17px;letter-spacing:1.4px;font-weight:950}
+body:has(#homeHub:not(.hidden-app)) .brand p{font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:#81998b}
+body:has(#homeHub:not(.hidden-app)) #goHub{background:#111c16;border-color:#2c4033;border-radius:8px;font-size:12px}
+body:has(#homeHub:not(.hidden-app)) .season{border-radius:7px;background:#101b14;border-color:#2a4232;font-size:10px;letter-spacing:1px;padding:9px 12px}
+.hub-screen{max-width:1360px;margin:0 auto 22px;padding:0 0 12px;animation:homeScreenIn .55s ease-out}
+.hub-hero{min-height:430px;grid-template-columns:1.02fr .98fr;border:1px solid #324638;border-radius:12px;background:#0a130e;box-shadow:0 25px 80px #0008;isolation:isolate}
+.hub-copy{padding:clamp(28px,4.4vw,64px);align-self:stretch;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(100deg,#0a140f 0%,#0a140ff5 75%,#0a140f00 100%)}
+.home-status{display:flex;align-items:center;gap:9px;color:#c1d1c5;font-size:9px;letter-spacing:1.5px;font-weight:900}
+.live-dot{width:7px;height:7px;background:#b7f36b;border-radius:50%;box-shadow:0 0 12px #b7f36b;animation:statusPulse 1.8s infinite}
+.status-divider{color:#587060}
+.hub-title{font-size:clamp(48px,6.6vw,92px);line-height:.84;letter-spacing:-5px;font-weight:1000;margin:29px 0 19px;text-transform:uppercase}
+.hub-title span{color:#b7f36b;text-shadow:0 0 32px #b7f36b18}
+.hub-copy p{font-size:14px;line-height:1.8;max-width:440px;color:#a8b9ad;margin:0}
+.home-hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:27px}
+.home-primary{display:flex;align-items:center;justify-content:space-between;gap:28px;padding:14px 16px;border-radius:5px;background:#b7f36b;border:1px solid #b7f36b;color:#0a150c;font-size:10px;letter-spacing:.6px;box-shadow:0 6px 28px #b7f36b16}
+.home-primary b{font-size:17px}.home-primary:hover{background:#d0ff98;transform:translateY(-2px)}
+.home-free-note{font-size:9px;color:#a2b6a6;letter-spacing:.6px;font-weight:800}.home-free-note span{color:#b7f36b;margin-right:5px}
+.home-hero-meta{display:flex;align-items:center;gap:15px;margin-top:35px;color:#6f8676;font-size:8px;letter-spacing:1.2px;font-weight:900}
+.home-hero-meta b{color:#d6e1d8;margin-right:4px}.home-hero-meta i{height:16px;width:1px;background:#314237}
+.hub-hero-art{min-height:430px;position:relative;background:#111d16 url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1400&q=85') center 48%/cover no-repeat;isolation:isolate}
+.hub-hero-art:before{inset:0;left:0;right:0;bottom:0;height:auto;border-radius:0;transform:none;border:0;background:linear-gradient(90deg,#0a140f 0%,#0a140f38 28%,#08100a1a 68%,#07100a80 100%),linear-gradient(0deg,#07100be8 0%,transparent 45%),linear-gradient(180deg,#07100a44,transparent 42%);z-index:0}
+.hub-hero-art:after{display:none}
+.stadium-glow{z-index:0;background:radial-gradient(ellipse at 52% 12%,#fff8 0,transparent 22%),linear-gradient(120deg,transparent 25%,#b7f36b12 52%,transparent 75%);mix-blend-mode:screen}
+.hero-light-beam{position:absolute;top:-20%;height:95%;width:22%;background:linear-gradient(180deg,#e9ffe51f,transparent);filter:blur(20px);transform:rotate(24deg);z-index:0}
+.beam-one{left:20%}.beam-two{right:18%;transform:rotate(-24deg)}
+.hero-player-silhouette{position:absolute;z-index:1;width:190px;height:300px;left:46%;top:17%;filter:drop-shadow(0 20px 30px #000b);transform:rotate(-7deg);opacity:.93}
+.player-head{position:absolute;top:2px;left:76px;width:48px;height:52px;border-radius:45% 45% 42% 42%;background:linear-gradient(90deg,#080c09,#29352b 48%,#070a08)}
+.player-body{position:absolute;top:51px;left:45px;width:108px;height:130px;border-radius:32px 32px 18px 18px;background:linear-gradient(90deg,#070b08,#1d2b21 50%,#080c09);clip-path:polygon(24% 0,76% 0,100% 22%,82% 100%,18% 100%,0 22%)}
+.player-arm{position:absolute;top:62px;width:30px;height:135px;border-radius:20px;background:linear-gradient(90deg,#080c09,#202d23,#070b08);transform-origin:top center}
+.arm-left{left:35px;transform:rotate(13deg)}.arm-right{left:137px;height:120px;transform:rotate(-25deg)}
+.player-leg{position:absolute;top:164px;width:40px;height:132px;border-radius:14px;background:linear-gradient(90deg,#080b08,#1d2a20,#070b08);transform-origin:top center}
+.leg-left{left:60px;transform:rotate(8deg)}.leg-right{left:105px;height:119px;transform:rotate(-17deg)}
+.hero-ball{position:absolute;z-index:2;left:58%;bottom:15%;width:32px;height:32px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#cbd5ca 42%,#313b31 44%,#111a13 58%,#dfe7dc 60%);box-shadow:0 10px 22px #0009}
+.hero-art-label{right:auto;left:8%;bottom:7%;font-size:clamp(25px,3.4vw,45px);letter-spacing:-1.5px;line-height:1.05}
+.hero-art-label small{font-size:9px;letter-spacing:2px;margin-bottom:8px;color:#c0d2c4}
+.hero-art-label strong{display:block}.hero-art-label b{color:#b7f36b}.hero-art-label span{display:block;margin-top:10px;font-size:8px;letter-spacing:2px;color:#c2d1c5}.hero-art-label span i{font-style:normal;color:#b7f36b}
+.hero-score-chip{position:absolute;z-index:3;right:22px;top:22px;display:flex;flex-direction:column;gap:3px;padding:12px 14px;border:1px solid #ffffff35;background:#07100bbd;backdrop-filter:blur(10px);min-width:122px}
+.hero-score-chip span,.hero-score-chip small{font-size:8px;letter-spacing:1.5px;color:#a9bcad;font-weight:800}.hero-score-chip strong{font-size:26px;line-height:1;color:#f4f7f2;letter-spacing:-1px}.hero-score-chip em{font-style:normal;color:#b7f36b;font-size:15px}.hero-bottom-fade{position:absolute;z-index:2;left:0;right:0;bottom:0;height:4px;background:linear-gradient(90deg,#b7f36b,transparent 80%)}
+.hub-section-head{margin:35px 2px 17px;align-items:center}
+.hub-section-head h2{font-size:clamp(24px,3.3vw,36px);letter-spacing:-1.5px;font-weight:950}
+.heading-period{color:#b7f36b}.home-section-side{display:flex;align-items:center;gap:10px;font-size:9px;color:#789181;letter-spacing:1.5px;font-weight:900}.home-section-side i{height:3px;width:3px;border-radius:50%;background:#b7f36b}
+.mode-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.mode-card{min-height:215px;border-radius:8px;padding:20px 20px 17px;background:linear-gradient(145deg,#121f17,#0a120d 75%);border:1px solid #27382c;box-shadow:0 10px 28px #0002;gap:7px;transition:transform .2s,border-color .2s,background .2s}
+.mode-card:before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,#b7f36b,transparent);opacity:0;transition:opacity .2s}
+.mode-card:hover{transform:translateY(-4px);border-color:#617f52;background:linear-gradient(145deg,#1a2d20,#0a120d 75%);box-shadow:0 17px 35px #0005}
+.mode-card:hover:before{opacity:1}
+.mode-kicker{display:flex;align-items:center;gap:8px;font-size:9px;letter-spacing:1.5px;color:#8da291}
+.mode-kicker i{display:inline-block;width:17px;height:1px;background:#58725c}
+.mode-icon{display:grid;place-items:center;width:46px;height:46px;border:1px solid #344b37;border-radius:8px;background:linear-gradient(145deg,#1e3223,#0e1911);color:#b7f36b;font-size:25px;margin:13px 0 5px;filter:none}
+.mode-card strong{font-size:24px;letter-spacing:-.8px;font-weight:950}
+.mode-desc{font-size:12px;line-height:1.6;color:#8ea194;min-height:38px;max-width:310px}
+.mode-open{display:flex;align-items:center;justify-content:space-between;width:100%;border-top:1px solid #ffffff10;margin-top:10px;padding-top:13px;font-size:9px;letter-spacing:1.3px;color:#b7f36b}
+.mode-open b{font-size:16px;transition:transform .2s}.mode-card:hover .mode-open b{transform:translate(3px,-2px)}
+.mode-kickoff .mode-icon{color:#9bc8ff}.mode-cup .mode-icon{color:#f3d17b}.mode-create .mode-icon{color:#a9c9ff}.mode-ultimate .mode-icon{color:#d7b6ff}.mode-playercareer .mode-icon{color:#ffb8a6}
+.home-bottom-strip{display:flex;align-items:center;gap:20px;flex-wrap:wrap;border-top:1px solid #ffffff12;margin-top:28px;padding:18px 2px 4px;color:#7e9282}
+.home-bottom-strip>div{display:flex;align-items:center;gap:10px;margin-right:auto}.bottom-mark{font-size:23px;font-weight:1000;letter-spacing:-2px;color:#f0f4ee}.bottom-mark span{font-size:10px;vertical-align:top;color:#b7f36b;letter-spacing:0}
+.home-bottom-strip strong{display:block;font-size:9px;letter-spacing:1.6px;color:#c0cdc3}.home-bottom-strip small{display:block;font-size:8px;letter-spacing:.7px;color:#708677;margin-top:3px}
+.home-browser-badge{display:flex;align-items:center;gap:7px;font-size:8px;letter-spacing:1px;font-weight:900;color:#b7f36b}.home-browser-badge i{width:6px;height:6px;background:#b7f36b;border-radius:50%;box-shadow:0 0 9px #b7f36b}
+.hub-footer-disclaimer{font-size:9px;color:#5f7464}
+@keyframes homeScreenIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes statusPulse{50%{opacity:.45;box-shadow:0 0 3px #b7f36b}}
+@media(max-width:850px){.hub-hero{grid-template-columns:1fr}.hub-copy{padding:32px}.hub-hero-art{min-height:320px}.hero-player-silhouette{left:48%;top:4%;transform:scale(.86) rotate(-7deg);transform-origin:top center}.home-hero-meta{margin-top:24px}}
+@media(max-width:600px){body:has(#homeHub:not(.hidden-app))>.wrap{padding:12px}.hub-hero{min-height:0}.hub-copy{padding:25px 21px}.hub-title{font-size:clamp(48px,15vw,74px);letter-spacing:-3px;margin:24px 0 15px}.hub-copy p{font-size:12px}.home-hero-actions{align-items:flex-start;flex-direction:column;gap:12px}.home-hero-meta{gap:9px;font-size:7px}.hub-hero-art{min-height:280px}.hero-player-silhouette{left:43%;top:0;transform:scale(.72) rotate(-7deg);transform-origin:top center}.hero-score-chip{top:12px;right:12px;min-width:100px;padding:9px}.hero-score-chip strong{font-size:22px}.hero-art-label{left:6%;bottom:7%;font-size:28px}.hub-section-head{margin-top:27px;align-items:flex-start;flex-direction:column;gap:6px}.home-section-side{font-size:8px}.mode-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.mode-card{min-height:220px;padding:13px 11px}.mode-kicker{font-size:7px;letter-spacing:.8px}.mode-icon{width:39px;height:39px;font-size:21px;margin-top:11px}.mode-card strong{font-size:18px}.mode-desc{font-size:10px;min-height:52px}.mode-open{font-size:7px;letter-spacing:.6px}.home-bottom-strip{gap:12px}.hub-footer-disclaimer{width:100%}}
+@media(prefers-reduced-motion:reduce){.hub-screen,.live-dot{animation:none!important}.mode-card,.home-primary,.mode-open b{transition:none!important}}
+
 </style></head>
 <body><div class="wrap">
 <header class="top"><div class="brand"><div class="ball">⚽</div><div><h1>FOOTBALL CAREER</h1><p>Jouw club. Jouw keuzes. Jouw nalatenschap.</p></div></div><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><button type="button" id="goHub">⌂ Hoofdmenu</button><div class="season">SEIZOEN <span id="season">2026/27</span></div></div></header>
 
 <section id="homeHub" class="hub-screen">
   <div class="hub-hero">
-    <div class="hub-copy"><div class="eyebrow">THE WORLD IS YOURS • 2026/27</div><div class="hub-title">DIT IS JOUW<br><span>VOETBALWERELD.</span></div><p>Kies je manier van spelen. Bouw een dynastie, speel direct een topwedstrijd of maak je eigen club.</p><div class="actions"><button id="continueCareer" class="hub-action">↗ Doorgaan met carrière</button></div></div>
-    <div class="hub-hero-art"><div class="stadium-glow"></div><div class="hero-player">⚽</div><div class="hero-art-label">FC <b>CAREER</b><small>SEASON 26/27</small></div></div>
+    <div class="hub-copy">
+      <div class="home-status"><span class="live-dot"></span> NIEUW SEIZOEN BESCHIKBAAR <span class="status-divider">/</span> 2026–27</div>
+      <div class="hub-title">THE NEXT<br><span>CHAPTER.</span></div>
+      <p>Jouw club. Jouw keuzes. Jouw voetbalwereld. Bouw aan een legende, haal sterren binnen en speel jouw eigen wedstrijden.</p>
+      <div class="actions home-hero-actions"><button id="continueCareer" class="hub-action home-primary"><span>DOORGAAN MET CARRIÈRE</span><b>↗</b></button><span class="home-free-note"><span>✓</span> GRATIS TE SPELEN IN JE BROWSER</span></div>
+      <div class="home-hero-meta"><span><b>01</b> MANAGER</span><i></i><span><b>02</b> MATCHDAY</span><i></i><span><b>03</b> YOUR LEGACY</span></div>
+    </div>
+    <div class="hub-hero-art" aria-label="Voetbalstadion tijdens een avondwedstrijd">
+      <div class="stadium-glow"></div><div class="hero-light-beam beam-one"></div><div class="hero-light-beam beam-two"></div>
+      <div class="hero-player-silhouette"><div class="player-head"></div><div class="player-body"></div><div class="player-arm arm-left"></div><div class="player-arm arm-right"></div><div class="player-leg leg-left"></div><div class="player-leg leg-right"></div></div>
+      <div class="hero-ball"></div><div class="hero-art-label"><small>YOUR CLUB. YOUR STORY.</small><strong>FC <b>CAREER</b></strong><span>BUILD YOUR LEGACY <i>↗</i></span></div>
+      <div class="hero-score-chip"><span>SEASON</span><strong>26 <em>/</em> 27</strong><small>READY FOR KICK-OFF</small></div>
+      <div class="hero-bottom-fade"></div>
+    </div>
   </div>
-  <div class="hub-section-head"><div><div class="eyebrow">KIES JE MODUS</div><h2>Wat gaan we spelen?</h2></div><span class="sub">ALLE MODI • LOKAAL OPSLAAN</span></div>
+  <div class="hub-section-head"><div><div class="eyebrow">JOUW VOLGENDE STAP</div><h2>Kies je spelmodus<span class="heading-period">.</span></h2></div><span class="home-section-side">6 MODI <i></i> ONE FOOTBALL WORLD</span></div>
   <div class="mode-grid">
-    <button class="mode-card mode-career" data-mode="career"><span class="mode-kicker">01 / MANAGER</span><span class="mode-icon">📋</span><strong>Carrière</strong><span class="mode-desc">Transfers, tactiek, selectie en prijzen winnen.</span><span class="mode-open">START CARRIÈRE ↗</span></button>
-    <button class="mode-card mode-kickoff" data-mode="kickoff"><span class="mode-kicker">02 / DIRECT SPELEN</span><span class="mode-icon">⚽</span><strong>Aftrap</strong><span class="mode-desc">Kies twee clubs en speel meteen een wedstrijd.</span><span class="mode-open">KIES TEAMS ↗</span></button>
-    <button class="mode-card mode-cup" data-mode="tournament"><span class="mode-kicker">03 / BEKERAVOND</span><span class="mode-icon">🏆</span><strong>Toernooi</strong><span class="mode-desc">Speel een mini-toernooi tegen drie verschillende clubs.</span><span class="mode-open">START TOERNOOI ↗</span></button>
-    <button class="mode-card mode-create" data-mode="create"><span class="mode-kicker">04 / JOUW IDENTITEIT</span><span class="mode-icon">🛡️</span><strong>Club maken</strong><span class="mode-desc">Bedenk een clubnaam, kleuren, stadion en mascotte.</span><span class="mode-open">BOUW JE CLUB ↗</span></button>
-    <button class="mode-card mode-ultimate" data-mode="ultimate"><span class="mode-kicker">05 / JOUW DREAM SQUAD</span><span class="mode-icon">💎</span><strong>Ultimate Team</strong><span class="mode-desc">Open packs, verzamel spelerskaarten en bouw je eigen elftal.</span><span class="mode-open">BOUW JE TEAM ↗</span></button>
-<button class="mode-card mode-playercareer" data-mode="playercareer"><span class="mode-kicker">06 / WORD EEN STER</span><span class="mode-icon">🌟</span><strong>Spelerscarrière</strong><span class="mode-desc">Maak je eigen profvoetballer, train jezelf en groei naar de top.</span><span class="mode-open">MAAK JE SPELER ↗</span></button>
+    <button class="mode-card mode-career" data-mode="career"><span class="mode-kicker">01 <i></i> MANAGER MODE</span><span class="mode-icon">♜</span><strong>Carrière</strong><span class="mode-desc">Bouw je selectie. Onderhandel met clubs. Win prijzen.</span><span class="mode-open">START CARRIÈRE <b>↗</b></span></button>
+    <button class="mode-card mode-kickoff" data-mode="kickoff"><span class="mode-kicker">02 <i></i> MATCHDAY</span><span class="mode-icon">⚽</span><strong>Aftrap</strong><span class="mode-desc">Kies je teams, stap het veld op en speel de wedstrijd.</span><span class="mode-open">KIES TEAMS <b>↗</b></span></button>
+    <button class="mode-card mode-cup" data-mode="tournament"><span class="mode-kicker">03 <i></i> ROAD TO GLORY</span><span class="mode-icon">♛</span><strong>Toernooi</strong><span class="mode-desc">Versla drie tegenstanders en pak de beker.</span><span class="mode-open">SPEEL TOERNOOI <b>↗</b></span></button>
+    <button class="mode-card mode-create" data-mode="create"><span class="mode-kicker">04 <i></i> CLUB BUILDER</span><span class="mode-icon">⬟</span><strong>Club maken</strong><span class="mode-desc">Bepaal je naam, kleuren, stadion en clubidentiteit.</span><span class="mode-open">MAAK JE CLUB <b>↗</b></span></button>
+    <button class="mode-card mode-ultimate" data-mode="ultimate"><span class="mode-kicker">05 <i></i> DREAM SQUAD</span><span class="mode-icon">✦</span><strong>Ultimate Team</strong><span class="mode-desc">Open packs, verzamel spelers en bouw je droomelftal.</span><span class="mode-open">BOUW JE TEAM <b>↗</b></span></button>
+    <button class="mode-card mode-playercareer" data-mode="playercareer"><span class="mode-kicker">06 <i></i> BE THE PLAYER</span><span class="mode-icon">★</span><strong>Spelerscarrière</strong><span class="mode-desc">Begin als talent en werk jezelf naar de wereldtop.</span><span class="mode-open">START JOUW REIS <b>↗</b></span></button>
   </div>
-  <div class="hub-footer"><span>⚽ FOOTBALL CAREER</span><span>Fan-made voetbalgame • Geen officiële EA-game</span></div>
+  <div class="home-bottom-strip"><div><span class="bottom-mark">FC<span>27</span></span><div><strong>FOOTBALL CAREER</strong><small>JOUW VOETBALWERELD, ALTIJD BIJ DE HAND.</small></div></div><span class="home-browser-badge"><i></i> SPEELBAAR IN DE BROWSER</span><span class="hub-footer-disclaimer">Fan-made game · Geen officiële EA-game</span></div>
 </section>
 <section id="quickSetup" class="menu-screen hidden-app">
  <div class="eyebrow">MATCH CENTRE • <span id="quickModeLabel">AFTRAP</span></div><h2 id="quickTitle">KIES JE TEAMS.</h2><p style="color:var(--muted)">Selecteer de competitie en clubs. Daarna start de wedstrijd direct in de speelmodus.</p>
