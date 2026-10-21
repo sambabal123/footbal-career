@@ -297,6 +297,65 @@ body:has(#homeHub:not(.hidden-app)) .season{border-radius:7px;background:#101b14
 .creator-tags span{border:1px solid #365b48;border-radius:99px;padding:4px 8px;font-size:10px;color:#d9e8dd;background:#10271e}
 @media(max-width:540px){.creator-preview{grid-template-columns:96px minmax(0,1fr);gap:11px;padding:11px}.creator-avatar{width:88px;height:118px}}
 
+
+/* HOME SCREEN REBUILD — cinematic football hub, responsive */
+#homeHub{max-width:1400px;padding:0 0 28px}
+#homeHub .hub-hero{min-height:475px;grid-template-columns:1fr 1.08fr;border:1px solid #263d37;border-radius:8px;background:#08110f;box-shadow:0 24px 80px #0009;isolation:isolate}
+#homeHub .hub-copy{padding:clamp(24px,4vw,58px);background:linear-gradient(90deg,#07100efc 0%,#07100ee8 65%,#07100e00 100%);margin-right:-100px;padding-right:110px}
+#homeHub .home-status{display:flex;align-items:center;gap:8px;font-size:10px;font-weight:900;letter-spacing:1.6px;color:#c6d4cf}
+#homeHub .hub-title{font-size:clamp(46px,6.5vw,88px);line-height:.86;letter-spacing:-4.8px;margin:24px 0 20px;text-transform:uppercase;font-style:italic}
+#homeHub .hub-title span{color:#d9ff00}
+#homeHub .hub-copy p{font-size:15px;line-height:1.7;color:#c4ceca;max-width:410px}
+#homeHub .hub-action.home-primary{background:#d9ff00;color:#10150b;border:0;border-radius:2px;min-height:56px;padding:0 20px;letter-spacing:.5px;font-weight:1000}
+#homeHub .hub-action.home-primary:hover{background:#efffa0;transform:translateY(-2px)}
+#homeHub .home-free-note{font-size:9px;letter-spacing:1.2px;color:#c0cbc5}
+#homeHub .home-hero-meta{gap:15px;margin-top:34px;color:#b8c5be;font-size:10px;letter-spacing:1.3px}
+#homeHub .home-hero-meta b{color:#d9ff00}
+#homeHub .hub-hero-art{min-height:475px;background-color:#111;background-image:linear-gradient(90deg,#07100e00 0%,#07100e12 45%,#07100e33 100%),url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1800&q=85');background-size:cover;background-position:center 54%;clip-path:polygon(12% 0,100% 0,100% 100%,0 100%)}
+#homeHub .hub-hero-art:before{inset:auto 0 0;height:44%;border-radius:0;background:linear-gradient(0deg,#050908ed,transparent);transform:none;border:0}
+#homeHub .hub-hero-art:after{display:none}
+#homeHub .stadium-glow{background:linear-gradient(180deg,#07100e22,#07100e00 35%,#07100e88),linear-gradient(90deg,#07100e66,transparent 35%);inset:0}
+#homeHub .hero-player-silhouette{display:none}
+#homeHub .hero-ball{display:none}
+#homeHub .hero-art-label{left:12%;right:auto;bottom:9%;font-size:clamp(24px,3vw,40px);line-height:1.05;letter-spacing:-1px;font-style:italic}
+#homeHub .hero-art-label small{font-size:9px;letter-spacing:3px;margin-bottom:8px}
+#homeHub .hero-art-label span{display:block;font-size:10px;letter-spacing:2px;margin-top:10px;color:#d9ff00}
+#homeHub .hero-score-chip{top:8%;right:7%;border:1px solid #ffffff44;background:#07100e99;backdrop-filter:blur(10px);border-radius:3px}
+#homeHub .hub-section-head{margin:32px 0 15px;padding:0 2px}
+#homeHub .hub-section-head h2{font-size:clamp(25px,3vw,35px);letter-spacing:-1.4px;text-transform:uppercase;font-style:italic}
+#homeHub .heading-period{color:#d9ff00}
+#homeHub .home-section-side{font-size:9px;letter-spacing:1.5px;color:#a8b5af}
+#homeHub .mode-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+#homeHub .mode-card{min-height:190px;padding:20px;border-radius:4px;border:1px solid #293b35;background:linear-gradient(120deg,#19231f,#0c1411 82%);transition:transform .18s,border-color .18s;gap:7px}
+#homeHub .mode-card:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,#d9ff0010,transparent 55%);pointer-events:none}
+#homeHub .mode-card:hover{transform:translateY(-3px);border-color:#d9ff00;background:linear-gradient(120deg,#253229,#0c1411 82%)}
+#homeHub .mode-kicker{font-size:9px;letter-spacing:1.5px;color:#a6b5ad}
+#homeHub .mode-kicker i{display:inline-block;width:18px;height:2px;background:#d9ff00;vertical-align:middle;margin:0 5px}
+#homeHub .mode-icon{position:absolute;right:20px;top:24px;font-size:30px;color:#d9ff00;opacity:.8}
+#homeHub .mode-card strong{font-size:24px;font-style:italic;text-transform:uppercase;letter-spacing:-.7px}
+#homeHub .mode-desc{font-size:12px;color:#aab8b0;max-width:280px;min-height:34px}
+#homeHub .mode-open{font-size:9px;letter-spacing:1.4px;color:#d9ff00;border-top:1px solid #ffffff13;width:100%;display:flex;justify-content:space-between}
+#homeHub .mode-kickoff,#homeHub .mode-cup,#homeHub .mode-create,#homeHub .mode-playercareer,#homeHub .mode-ultimate{background:linear-gradient(120deg,#19231f,#0c1411 82%);border-color:#293b35}
+#homeHub .home-bottom-strip{border-top:1px solid #273831;margin-top:28px;padding-top:18px}
+#homeHub .bottom-mark{font-style:italic;font-weight:1000}
+#homeHub .bottom-mark span{color:#d9ff00}
+#homeHub .home-browser-badge{font-size:9px;letter-spacing:1.2px}
+#homeHub .hub-footer-disclaimer{font-size:10px;color:#76877e}
+@media(max-width:850px){
+ #homeHub .hub-hero{grid-template-columns:1fr;min-height:0}
+ #homeHub .hub-copy{margin-right:0;padding-right:clamp(22px,4vw,48px);background:linear-gradient(180deg,#07100efc,#07100edc)}
+ #homeHub .hub-hero-art{min-height:280px;clip-path:none;background-position:center}
+ #homeHub .mode-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:520px){
+ #homeHub .hub-title{font-size:48px;letter-spacing:-2.8px}
+ #homeHub .hub-hero-art{min-height:220px}
+ #homeHub .mode-grid{grid-template-columns:1fr}
+ #homeHub .mode-card{min-height:165px}
+ #homeHub .home-hero-meta{flex-wrap:wrap}
+ #homeHub .home-bottom-strip{align-items:flex-start}
+}
+
 </style></head>
 <body><div class="wrap">
 <header class="top"><div class="brand"><div class="ball">⚽</div><div><h1>FOOTBALL CAREER</h1><p>Jouw club. Jouw keuzes. Jouw nalatenschap.</p></div></div><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><button type="button" id="goHub">⌂ Hoofdmenu</button><div class="season">SEIZOEN <span id="season">2026/27</span></div></div></header>
