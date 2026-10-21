@@ -671,7 +671,7 @@ function drawMatch(){if(!match)return;if(window.THREE){init3D();if(scene3d&&rend
 window.addEventListener("keydown",e=>{const k=e.key.toLowerCase();if(["arrowup","arrowdown","arrowleft","arrowright"," ","enter"].includes(k)||(["w","a","s","d","e","f","q","shift"].includes(k)&&$("page-match")&&!$("page-match").classList.contains("hidden")))e.preventDefault();pressed.add(k)});
 window.addEventListener("keyup",e=>pressed.delete(e.key.toLowerCase()));
 document.querySelectorAll("[data-touch]").forEach(btn=>{const key=btn.dataset.touch;const map={up:"w",down:"s",left:"a",right:"d",shoot:"d",pass:" "};const k=map[key]||key;btn.addEventListener("pointerdown",e=>{e.preventDefault();if(key==="shoot"||key==="pass"){const p=match?.home.find(q=>q.controlled===0);if(p)doKick(p,key==="pass")}else pressed.add(k)});["pointerup","pointercancel","pointerleave"].forEach(ev=>btn.addEventListener(ev,()=>pressed.delete(k)))});
-$("startMatch").onclick=()=>{if(!match||match.done)match=createMatch();match.live=true;if(!matchFrame){lastFrame=0;matchFrame=requestAnimationFrame(matchLoop)}$("matchMessage").textContent="Wedstrijd loopt! Succes.";drawMatch()};
+$("startMatch").onclick=startPlayableMatch;
 $("pauseMatch").onclick=pausePlayable;$("finishMatch").onclick=endPlayableMatch;
 
 function save(show=true){try{localStorage.setItem("footballCareerSave",JSON.stringify(state));if(show)toast("Carrière opgeslagen op dit apparaat.");}catch(e){if(show)toast("Opslaan is niet beschikbaar in deze browser.")}}
